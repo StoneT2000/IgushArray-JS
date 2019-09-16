@@ -8,6 +8,8 @@ npm install igusharray
 
 The javascript implementation of the IgushArray is a one for one replacement for the normal javascript array as it implements the same prototype methods as specified by [ECMA 262](https://www.ecma-international.org/publications/standards/Ecma-262.htm), with the only difference being that accessing elements in the IgushArray is done through the `get(index)` method instead of doing `array[index]`. In the rest of this readme, the normal javascript array will be referred to as the built in array.
 
+You are welcome to **contribute** to this repository, just fork it, make a change, write what changes you made, and make the pull request! There's a list of things you can help out on in the **Todo** section of this readme.
+
 ## Overview
 
 Comparisons of time complexities in key operations in similar data structures are shown below.
@@ -50,6 +52,8 @@ myArray.set(1, 100); // equivalent to myArray[1] = 100
 var sum = myArray.get(1) + myArray.get(2); // equivalent to myArray[1] + myArray[2];
 // sum equals 100 + 3 = 103
 ```
+
+Any **questions**? Post an **issue** in this repository on GitHub. But first, check out documentation on built in Arrays, done really nicely [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) on Mozilla web docs.
 
 # Performance Tests
 
@@ -147,4 +151,26 @@ npm run test
 # Todo
 
 - Complete implementations for missing methods that the built in array has
+  - from
+  - isArray
+  - of
+  - concat
+  - entries
+  - every
+  - filter
+  - find
+  - findIndex
+  - flat
+  - flatMap
+  - forEach
+  - includes
+  - join
+  - keys
+  - lastIndexOf
+  - map
+  - reduce
+  - reduceRight
+  - some
+  - toLocaleString
+  - toSource
 - Fine tune the implementations marked with the TUNE comment

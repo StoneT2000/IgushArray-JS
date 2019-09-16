@@ -55,7 +55,6 @@ IgushArray.prototype.setCapacity = function(newCapacity) {
   if (newCapacity < this.capacity) {
     throw new Error("New capacity: " + newCapacity + " is not larger than the old capacity of " + this.capacity);
   }
-  console.log("CAP");
   this.capacity = newCapacity;
 
   // reset the deqCapacities to maintain optimal insert and remove times
@@ -298,8 +297,11 @@ IgushArray.prototype.copyWithin = function(target = 0, start = 0, end = this.len
     end = this.length + end;
   }
 }
-IgushArray.prototype.fill = function() {
-
+IgushArray.prototype.fill = function(value, start = 0, end = this.length) {
+  for (let i = start; i < end; i++) {
+    this.set(i, value);
+  }
+  return this;
 }
 IgushArray.prototype.pop = function() {
   return this.remove(this.length - 1);

@@ -258,3 +258,18 @@ test('Test array iterable', () => {
   expect([...igusharr]).toStrictEqual([...arr]);
   expect([...igusharr]).toStrictEqual([...arr]);
 });
+test('Test array fill', () => {
+  randomizeArray(219);
+  expect([...igusharr.fill(23)]).toStrictEqual([...arr.fill(23)]);
+  randomizeArray(119,44);
+  expect([...igusharr.fill(23,1,5)]).toStrictEqual([...arr.fill(23,1, 5)]);
+  expect([...igusharr.fill("#",29)]).toStrictEqual([...arr.fill("#",29)]);
+});
+
+test('Test array map', () => {
+  randomizeArray(219);
+  expect([...igusharr.fill(23)]).toStrictEqual([...arr.fill(23)]);
+  randomizeArray(119,44);
+  expect([...igusharr.fill(23,1,5)]).toStrictEqual([...arr.fill(23,1, 5)]);
+  expect([...igusharr.fill("#",29)]).toStrictEqual([...arr.fill("#",29)]);
+});
