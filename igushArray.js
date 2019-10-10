@@ -465,3 +465,140 @@ IgushArray.prototype.unshift = function(...items) {
 IgushArray.prototype.isEmpty = function() {
   return this.length == 0 ? true : false;
 }
+
+// concats another array, (msut be iterable)
+IgushArray.prototype.concat = function(arr) {
+  let newSize = this.length + arr.length;
+  let newIgushArray = new this.constructor(newSize);
+  let igushItr = this.entries();
+  let arrItr = arr.entries();
+  while(true) {
+    let next = igushItr.next();
+    if (next.done == false) {
+      newIgushArray.push(next.value[1]);
+    }
+    else {
+      break;
+    }
+  }
+  while(true) {
+    let next = arrItr.next();
+    if (next.done == false) {
+      newIgushArray.push(next.value[1]);
+    }
+    else {
+      break;
+    }
+  }
+  return newIgushArray;
+}
+
+IgushArray.prototype.entries = function() {
+  let index = 0;
+  let thisArray = this;
+  const itr = {
+     next: function() {
+         let result;
+         if (index < thisArray.length) {
+             result = { value: [index, thisArray.get(index)], done: false }
+             index++;
+             return result;
+         }
+         return { value: undefined, done: true }
+     }
+  };
+  return itr;
+}
+
+/**
+ * Like the built in array filter function, but this one specifically returns a new array with the same length as the original
+ */
+IgushArray.prototype.filter = function(filter) {
+  let newIgushArray = new this.constructor(this.length);
+  for (let i = 0; i < this.length; i++) {
+    let val = this.get(i);
+    if (filter(val)) {
+      newIgushArray.push(val);
+    }
+  }
+  return newIgushArray;
+}
+
+IgushArray.prototype.find = function(finder) {
+  for (let i = 0; i < this.length; i++) {
+    let val = this.get(i);
+    if (finder(val)) {
+      return val;
+    }
+  }
+}
+IgushArray.prototype.keys = function() {
+  return this[Symbol.iterator]();
+}
+
+// TUNE: extremely slow due to concatenation
+IgushArray.prototype.join = function(seperator = ",") {
+  let str = "";
+  let i = 0;
+  for (; i < this.length - 1; i++) {
+    str += this.get(i) + seperator;
+  }
+  str+= this.get(i);
+  return str;
+}
+IgushArray.prototype.includes = function(valueToFind, fromIndex = 0) {
+  if (fromIndex < 0) {
+    fromIndex = this.length + fromIndex;
+  }
+  for (let i = fromIndex; i < this.length; i++) {
+    if (this.get(i) === valueToFind) {
+      return true;
+    }
+  }
+  return false;
+}
+IgushArray.prototype.indexOf = function(valueToFind, fromIndex = 0) {
+  if (fromIndex < 0) {
+    fromIndex = this.length + fromIndex;
+  }
+  if (fromIndex < 0) {
+    fromIndex = 0;
+  }
+
+  for (let i = fromIndex; i < this.length; i++) {
+    if (this.get(i) === valueToFind) {
+      return i;
+    }
+  }
+  return -1;
+}
+IgushArray.prototype.lastIndexOf = function(valueToFind, fromIndex = this.length - 1) {
+  if (fromIndex < 0) {
+    fromIndex = this.length + fromIndex;
+  }
+  else if (fromIndex >= this.length) {
+    fromIndex = this.length - 1;
+  }
+
+  // if still 0, return -1;
+  if (fromIndex < 0) {
+    return -1;
+  }
+
+  for (let i = fromIndex; i >= 0; i--) {
+    if (this.get(i) === valueToFind) {
+      return i;
+    }
+  }
+  return -1;
+}
+IgushArray.prototype.reduce = function (reduce, initialValue) {
+  if (!initialValue) {
+    initialValue = this.get(0);
+  }
+  let accumulator = initialValue;
+  for (let i = 1; i < this.length; i++) {
+    accumulator = reduce(accumulator, this.get(i), i, this);
+  }
+  return accumulator;
+}

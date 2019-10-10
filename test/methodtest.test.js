@@ -32,6 +32,10 @@ var seedrandom = require('seedrandom');
 
 var IgushArray = require("../igushArray.js");
 var igusharr = new IgushArray(100);
+igusharr.push(3,4,5);
+var k =igusharr.entries();
+
+
 var arr = [];
 
 function randomizeArray(size, spaceleft = 0, randomize = true, small = false) {
@@ -272,4 +276,58 @@ test('Test array map', () => {
   randomizeArray(119,44);
   expect([...igusharr.fill(23,1,5)]).toStrictEqual([...arr.fill(23,1, 5)]);
   expect([...igusharr.fill("#",29)]).toStrictEqual([...arr.fill("#",29)]);
+});
+
+test('Test array entries', () => {
+  randomizeArray(219);
+  let itr = igusharr.entries();
+  let itr2 = arr.entries();
+  for (let i = 0; i < 219; i++) {
+    expect(itr.next()).toStrictEqual(itr2.next());
+  }
+  itr = igusharr.entries();
+  itr2 = arr.entries();
+  for (let i = 0; i < 229; i++) {
+    expect(itr.next()).toStrictEqual(itr2.next());
+  }
+});
+test('Test array isEmpty', () => {
+  randomizeArray(23);
+  expect(igusharr.isEmpty()).toBe(false);
+  arr = [];
+  igusharr = new IgushArray(10);
+  expect(igusharr.isEmpty()).toBe(true);
+});
+test('Test array concat', () => {
+  randomizeArray(183);
+  expect([...igusharr.concat(arr)]).toStrictEqual([...arr.concat(arr)]);
+  randomizeArray(119,44);
+  expect([...igusharr.concat(arr)]).toStrictEqual([...arr.concat(arr)]);
+});
+test('Test array filter', () => {
+  randomizeArray(383);
+  expect([...igusharr.filter(val => Math.floor(val) % 2)]).toStrictEqual([...arr.filter(val => Math.floor(val) % 2)]);
+
+});
+test('Test array keys', () => {
+  randomizeArray(38);
+  let ikeys = igusharr.keys();
+  let akeys = arr.keys();
+  let b = [];
+  for (let e of ikeys) {
+    b.push(e);
+  }
+  for (let i = 0; i < arr.length; i++) {
+    expect(b[i]).toBe(arr[i]);
+  }
+});
+test('Test array join', () => {
+  randomizeArray(318);
+  expect(igusharr.join(",12")).toBe(arr.join(",12"));
+  randomizeArray(210);
+  expect(igusharr.join()).toBe(arr.join());
+});
+test('Test array reduce', () => {
+  randomizeArray(10, 0, false, true);
+  expect(igusharr.reduce((a,c) => a + c)).toBe(arr.reduce((a,c) => a + c));
 });

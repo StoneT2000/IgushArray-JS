@@ -151,24 +151,15 @@ npm run test
 # Todo
 
 - Complete implementations for missing methods that the built in array has
-  - from
-  - isArray
-  - of
-  - concat
-  - entries
   - every
-  - filter
-  - find
+  - filter (missing handling this argument)
+  - find (missing handling this argument)
   - findIndex
   - flat
   - flatMap
   - forEach
-  - includes
-  - join
-  - keys
-  - lastIndexOf
+  - includes (mostly done)
   - map
-  - reduce
   - reduceRight
   - some
   - toLocaleString
